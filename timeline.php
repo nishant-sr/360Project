@@ -17,7 +17,7 @@ if(isset($_SESSION['user'])&& isset($_SESSION['uid'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Timeline</title>
     <script async src="script/script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
@@ -27,7 +27,7 @@ if(isset($_SESSION['user'])&& isset($_SESSION['uid'])) {
       <a href="index.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
         Main
       </a>
-      <a href="timeline.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+      <a href="timeline.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
         Feed
       </a>
       
@@ -59,13 +59,13 @@ if(isset($_SESSION['user'])&& isset($_SESSION['uid'])) {
       <h2>Spotlight of Some Posts</h2>
       <div div class="d-flex p-2">
             <?php
-                $sql = "SELECT * FROM posts LIMIT ".$numPosts.";";
+                $sql = "SELECT * FROM posts;";
                 $res = $conn->query($sql);
                 while($row = $res->fetch_assoc()){
                     echo 
                     "<div class='card' style='width: 18rem;'>
                         <div class='card-body'>
-                        <h5 class='card-title'>".$row["body"]."</h5>
+                        <h5 class='card-title'>".$row["title"]."</h5>
                         <a href='post.php?post_id=".$row['post_id']."' class='btn btn-primary'>Go somewhere</a>
                         </div>
                     </div>";
@@ -90,4 +90,5 @@ if(isset($_SESSION['user'])&& isset($_SESSION['uid'])) {
   </div>
 </body>
 
+</body>
 </html>
