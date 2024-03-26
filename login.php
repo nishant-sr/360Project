@@ -30,6 +30,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             if ($row['username'] === $uname && $row['password'] === $pass) {
                 session_start();
             	$_SESSION['username'] = $uname;
+                $_SESSION['Admin'] = $row['is_admin'];
             	header("Location: profile.php");
 		        exit();
             }else{

@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     session_start();
     $_SESSION['username'] = $uname;
+    $_SESSION['Admin'] = $row['is_admin'];
     header("Location: profile.php");
     exit;
 }
