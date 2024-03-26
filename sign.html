@@ -39,15 +39,15 @@
       <div id="signupForm" class="form-container">
         <h2>Register</h2>
         <div class="mb-3 row">
-          <form onsubmit="validateSignUp(event)" class="p-2">
+          <form method="post" action="register.php"class="p-2">
             <label class="col-sm-2 col-form-label" for="usernameSignUp">Username:</label>
-            <input type="text" id="usernameSignUp" name="usernameSignUp" required>
+            <input type="text" id="username" name="username" required>
             <span id="usernameErrorSignUp" class="error-message"></span>
       
             <br>
       
             <label class="col-sm-2 col-form-label" for="passwordSignUp">Password:</label>
-            <input type="password" id="passwordSignUp" name="passwordSignUp" required>
+            <input type="password" id="password" name="password" required>
             <span id="passwordErrorSignUp" class="error-message"></span>
       
             <br>
@@ -60,23 +60,22 @@
       <div id="signinForm" class="form-container">
         <h2>Login</h2>
         <div class="mb-3 row">
-          <form onsubmit="validateSignIn(event)">
+          <form method="post" action="login.php">
             <label class="col-sm-2 col-form-label"  for="usernameSignIn">Username:</label>
-            <input type="text" id="usernameSignIn" name="usernameSignIn" required>
+            <input type="text" id="username" name="username" required>
             <span id="usernameErrorSignIn" class="error-message"></span>
       
             <br>
       
             <label class="col-sm-2 col-form-label"  for="passwordSignIn">Password:</label>
-            <input type="password" id="passwordSignIn" name="passwordSignIn" required>
+            <input type="password" id="password" name="password" required>
             <span id="passwordErrorSignIn" class="error-message"></span>
       
             <br>
       
-            <input type="submit" value="Sign In">
+            <button type="submit" value="Submit"> Submit</button>
           </form>
         </div>  
-        <p id="signupError">Error Signing In</p>
       </div>
   </div>
 </body>

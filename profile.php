@@ -1,5 +1,10 @@
+<?php
+include 'config.php';
+session_start();
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-  <nav class="navbar bg-primary ">
+<nav class="navbar bg-primary ">
     <div class="col p-2">
       <a href="index.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
         Main
@@ -29,18 +34,16 @@
         Admin
       </a>
     </div>
-  </nav>  
+  </nav>
   <header>
     <h1>User Profile</h1>
-  </header>    
+  </header>
+  <?php
+    
+  ?>
+
   <section>
-    <p>Name</p>
-    <p>Username</p>
-    <p>Comment History</p>
-        <!-- Add spotlight posts content here -->
+    <p>Username: <?php echo $_SESSION['username'] ?></p>
   </section>
-
-</body>
-
 </body>
 </html>

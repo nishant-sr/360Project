@@ -92,5 +92,4 @@ if(isset($_SESSION['user'])&& isset($_SESSION['$uid'])) {
   </div>
 </body>
 
-</body>
 </html>
