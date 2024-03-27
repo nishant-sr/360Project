@@ -1,7 +1,7 @@
 <?php
     include 'config.php';
     session_start();
-    $id = $_SESSION['id'];
+    $id = $_SESSION['user_id'];
     $username = $_POST["username"];
     $password = $_POST["password"];
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
