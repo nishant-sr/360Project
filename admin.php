@@ -43,13 +43,12 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <header>
       <h1>Admin View</h1>
-      <p>Search for users</p>
       <?php
         if($_SESSION['Admin']==1) {
             $sql = "SELECT * FROM user";
             $result = mysqli_query($conn, $sql);
             while ($row = mysqli_fetch_array($result)) {
-                ?>
+      ?>
                 <table class="table table-hover">
                 <thead>
                     <tr>
@@ -58,6 +57,7 @@ session_start();
                         <th scope="col">Password:</th>
                         <th scope="col">Updated At:</th>
                         <th scope="col">Admin Privilages:</th>
+                        <th scope="col">Delete User:</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,6 +70,11 @@ session_start();
                             if($row["is_admin"]==1) {echo 'True';} 
                             else {echo 'False';}  
                         ?>
+                    </th>
+                    <th>
+                        <form action="delete.php" type="post">
+                            <button class="m-2 btn btn-danger" type="submit"> Delete Account</button>
+                        </form>
                     </th>
                 </tbody>
                 </table>

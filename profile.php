@@ -42,12 +42,17 @@ session_start();
       <h1>User Profile</h1>
     </header>
     <section>
-      <p>Username: <?php echo $_SESSION['username'] ?></p>
-      <p>Admin Privileges: 
-        <?php if($_SESSION['Admin']==1) {echo 'All privileges';} 
-              else {echo 'None';}  
+      <p class="m-2">Username: <?php echo $_SESSION['username'] ?></p>
+      <p class="m-2">Admin Privileges: 
+        <?php 
+          if($_SESSION['Admin']==1) {echo 'All privileges';} 
+          else {echo 'None';}  
         ?>
       </p>
+      <a href="update.html"><button class="m-2 btn btn-success">Update user</button></a>
+      <form action="delete.php" type="post">
+        <button class=" m-2 btn btn-danger" type="submit"> Delete Account</button>
+      </form>
     </section>
   </body>
 </html>

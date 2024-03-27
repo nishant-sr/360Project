@@ -1,11 +1,13 @@
 <?php 
-$numPosts = 3;
+
 include 'config.php';
 session_start();
+// $user = $_SESSION['user'];
+// $uid = $_SESSION['$uid'] ;
 
-if(isset($_SESSION['user'])&& isset($_SESSION['uid'])) {
+if(isset($_SESSION['user'])&& isset($_SESSION['$uid'])) {
   $user = $_SESSION['user'];
-  $uid = $_SESSION['uid'] ;
+  $uid = $_SESSION['$uid'] ;
 }else{
   $user = null;
   $uid = null;
@@ -24,7 +26,7 @@ if(isset($_SESSION['user'])&& isset($_SESSION['uid'])) {
 <body>
   <nav class="navbar bg-primary ">
     <div class="col p-2">
-      <a href="index.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+      <a href="index.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
         Main
       </a>
       <a href="timeline.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
@@ -59,14 +61,14 @@ if(isset($_SESSION['user'])&& isset($_SESSION['uid'])) {
       <h2>Spotlight of Some Posts</h2>
       <div div class="d-flex p-2">
             <?php
-                $sql = "SELECT * FROM posts LIMIT ".$numPosts.";";
+                $sql = "SELECT * FROM posts;";
                 $res = $conn->query($sql);
                 while($row = $res->fetch_assoc()){
                     echo 
                     "<div class='card' style='width: 18rem;'>
                         <div class='card-body'>
                         <h5 class='card-title'>".$row["body"]."</h5>
-                        <a href='post.php?post_id=".$row['post_id']."' class='btn btn-primary'>Go somewhere</a>
+                        <a href='#' class='btn btn-primary'>Go somewhere</a>
                         </div>
                     </div>";
                 //   $sql2 = "SELECT COUNT(*) AS totaldownvotes FROM posts P JOIN downvotes U ON P.post_id = U.post_id WHERE P.post_id = ".$row["post_id"]." GROUP BY U.post_id ORDER BY totaldownvotes DESC";
@@ -89,5 +91,4 @@ if(isset($_SESSION['user'])&& isset($_SESSION['uid'])) {
       </div>
   </div>
 </body>
-
 </html>

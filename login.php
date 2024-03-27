@@ -29,6 +29,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 			$row = mysqli_fetch_assoc($result);
             if ($row['username'] === $uname && $row['password'] === $pass) {
                 session_start();
+                $_SESSION['id'] = $row['user_id'];
             	$_SESSION['username'] = $uname;
                 $_SESSION['Admin'] = $row['is_admin'];
             	header("Location: profile.php");
