@@ -2,12 +2,10 @@
 // Include your database connection code here
 include 'config.php';
 session_start();
-// $user = $_SESSION['user'];
-// $uid = $_SESSION['$uid'] ;
 
-if(isset($_SESSION['user'])&& isset($_SESSION['$uid'])) {
-  $user = $_SESSION['user'];
-  $uid = $_SESSION['uid'] ;
+if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
+  $user = $_SESSION['username'];
+  $uid = $_SESSION['user_id'] ;
 }else{
   $user = null;
   $uid = null;
@@ -32,10 +30,10 @@ if(isset($_GET['post_id'])) {
             $post = mysqli_fetch_assoc($result);
             // Fetch comments for the post
             $comments = array();
-            $sql = "SELECT c.*, u.username AS username
+            $sql = "SELECT c.*, u.username AS username, c.user_id AS user_id
             FROM comments c
             JOIN users u ON c.user_id = u.user_id
-            WHERE c.post_id = $post_id;";
+            WHERE c.post_id = $post_id ORDER BY c.updated_at DESC;";
             $result = mysqli_query($conn, $sql);
             if($result && mysqli_num_rows($result) > 0) {
                 while($row = mysqli_fetch_assoc($result)) {
@@ -43,7 +41,9 @@ if(isset($_GET['post_id'])) {
                         'comment_id' => $row['comment_id'],
                         'username' => $row['username'],
                         'body' => $row['body'],
-                        'updated_at' => $row['updated_at']
+                        'updated_at' => $row['updated_at'],
+                        'user_id' => $row['user_id'],
+                        'post_id' => $row['c.post_id']
                     );
                 }
             }
@@ -75,29 +75,32 @@ if(isset($_GET['post_id'])) {
 
     <nav class="navbar bg-primary ">
         <div class="col p-2">
-            <a href="index.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-                Main
-            </a>
-            <a href="timeline.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-                Feed
-            </a>
-            
-            <?php
-                if($user == '' || $user == null){
-                    
-                    echo'
-                    <a href="sign.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-                        Signup/Signin
-                    </a>';
-                }else{
-                    echo'<a href="profile.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-                    '.$user.' 
-                    </a>
-                    <a href="create.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-                        Create Page
-                    </a>';
-                }
-            ?>
+        <a href="index.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+            Main
+        </a>
+        <a href="timeline.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+            Feed
+        </a>
+        
+        <?php
+            if($user == '' || $user == null){
+                
+                echo'
+                <a href="register.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+                    Register
+                </a>
+                <a href="signin.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+                Sign-In
+                </a>';
+            }else{
+                echo'<a href="profile.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+                '.$user.' 
+                </a>
+                <a href="create.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+                    Create
+                </a>';
+            }
+        ?>
         </div>
     </nav>
 
@@ -114,21 +117,23 @@ if(isset($_GET['post_id'])) {
         <!-- Comments -->
         <div class="mt-4">
             <h2>Comments</h2>
+
 <?php
-            if(!empty($post['comments'])) {
-                foreach($post['comments'] as $comment) {
-?>
-                <div class="card mt-3">
-                    <div class="card-body">
-                        <p class="card-text"><?php echo $comment['body']; ?></p>
-                        <p class="card-text"><?php echo $comment['username']; ?> - <?php echo $comment['updated_at']; ?></p>
-                    </div>
-                </div>
-<?php
-                }
-            } else {
-                echo "<p>No comments for this post.</p>";
-            }
+if (!empty($post['comments'])) {
+    foreach ($post['comments'] as $comment) {
+        echo "<div class='card mt-3'>
+                <div class='card-body'>
+                    <p class='card-text'>" . $comment['body'] . "</p>
+                    <p class='card-text'>" . $comment['username'] . " - " . $comment['updated_at'] . "</p>";
+        // Check if the logged-in user is the owner of the comment
+        if ($uid == $comment['user_id']) {
+            echo "<a href='edit_comment.php?comment_id={$comment['comment_id']}' class='btn btn-primary'>Edit/Delete</a>";
+        }
+        echo "</div></div>";
+    }
+} else {
+    echo "<p>No comments for this post.</p>";
+}
 ?>
 
             <?php

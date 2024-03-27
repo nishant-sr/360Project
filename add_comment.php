@@ -2,17 +2,18 @@
 // Include your database connection code here
 include 'config.php';
 session_start();
-if(isset($_SESSION['user'])&& isset($_SESSION['$uid'])) {
-    $user = $_SESSION['user'];
-    $uid = $_SESSION['uid'] ;
+
+if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
+    $user = $_SESSION['username'];
+    $uid = $_SESSION['user_id'] ;
   }else{
     $user = null;
     $uid = null;
   }
 // Check if the user is logged in
-if(isset($_SESSION['user']) && isset($_SESSION['uid'])) {
+if(isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
     // Retrieve user information
-    $user_id = $_SESSION['uid']; // Assuming user ID is stored in $_SESSION['uid']
+    $user_id = $_SESSION['user_id']; // Assuming user ID is stored in $_SESSION['uid']
     
     // Check if the form data is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -26,6 +27,7 @@ if(isset($_SESSION['user']) && isset($_SESSION['uid'])) {
             $sql = "INSERT INTO comments (post_id, user_id, body) VALUES ('$post_id', $user_id , '$commentBody')";
             if(mysqli_query($conn, $sql)) {
                 // Comment added successfully
+                header("Location: post.php?post_id=$post_id");
                 // Optionally, you can output a success message here
             } else {
                 // Error inserting comment
@@ -43,7 +45,5 @@ if(isset($_SESSION['user']) && isset($_SESSION['uid'])) {
     // User not logged in
     echo "Error: User not logged in.";
 }
-
-header("Location: post.php?post_id=" .$post_id);
 exit();
 ?>

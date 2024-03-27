@@ -1,6 +1,8 @@
 <?php
+// Include your database connection code here
 include 'config.php';
 session_start();
+
 if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
   $user = $_SESSION['username'];
   $uid = $_SESSION['user_id'] ;
@@ -9,13 +11,12 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
   $uid = null;
 }
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>Create Post</title>
     <script async src="script/script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
@@ -50,18 +51,25 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
     ?>
     </div>
   </nav>
-  <header>
-    <h1>User Profile</h1>
-  </header>
-  <?php
-    
-  ?>
-
-  <section>
-    <p>Username: <?php echo $_SESSION['username'] ?></p>
-  </section>
-  <form action="logout.php" method="post">
-    <button type="submit">Logout</button>
-  </form>
+  <div class="container text-center p-2">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <header>
+          <h1>Write Post</h1>
+        </header>
+      
+        <form class="row g-3" method="post" action="submit_post.php">
+          <div class="col-md-6">
+            <label for="postTitle" class="form-label">Post Title</label>
+            <input type="text" class="form-control" id="postTitle" name="postTitle" required>
+          </div>
+          <div class="col-md-6">
+            <label for="postBody" class="form-label">Post Body</label>
+            <textarea class="form-control" id="postBody" name="postBody" required></textarea>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit Post</button>
+          </div>
+        </form>
+  </div>
 </body>
 </html>
