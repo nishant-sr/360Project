@@ -5,9 +5,9 @@ session_start();
 // $user = $_SESSION['user'];
 // $uid = $_SESSION['$uid'] ;
 
-if(isset($_SESSION['user'])&& isset($_SESSION['$uid'])) {
-  $user = $_SESSION['user'];
-  $uid = $_SESSION['$uid'] ;
+if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
+  $user = $_SESSION['username'];
+  $uid = $_SESSION['user_id'] ;
 }else{
   $user = null;
   $uid = null;
@@ -29,7 +29,7 @@ if(isset($_SESSION['user'])&& isset($_SESSION['$uid'])) {
       <a href="index.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
         Main
       </a>
-      <a href="timeline.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+      <a href="timeline.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
         Feed
       </a>
       
@@ -37,15 +37,18 @@ if(isset($_SESSION['user'])&& isset($_SESSION['$uid'])) {
         if($user == '' || $user == null){
             
             echo'
-            <a href="sign.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-                Signup/Signin
+            <a href="register.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+                Register
+            </a>
+            <a href="signin.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+              Sign-In
             </a>';
         }else{
-            echo'<a href="profile.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+            echo'<a href="profile.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
             '.$user.' 
             </a>
-            <a href="create.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-                Create Page
+            <a href="create.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+                Create
             </a>';
         }
     ?>

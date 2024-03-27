@@ -1,10 +1,14 @@
-<?php 
-    include 'config.php';
-    session_start();
-    $user = $_SESSION['user'];
+<?php
+// Start the session
+session_start();
 
-    $user == null;
-    $_SESSION['user'] = null;
-    header("Location: home.php");
-    exit;
+// Unset all of the session variables
+$_SESSION = array();
+
+// Destroy the session
+session_destroy();
+
+// Redirect to the login page or any other page as needed
+header("Location: login.php"); // Redirect to login page
+exit;
 ?>
