@@ -1,7 +1,9 @@
 <?php 
-$numPosts = 3;
+
 include 'config.php';
 session_start();
+// $user = $_SESSION['user'];
+// $uid = $_SESSION['$uid'] ;
 
 if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
   $user = $_SESSION['username'];
@@ -24,7 +26,7 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
 <body>
   <nav class="navbar bg-primary ">
     <div class="col p-2">
-      <a href="index.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+      <a href="index.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
         Main
       </a>
       <a href="timeline.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
@@ -62,7 +64,7 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
       <h2>Spotlight of Some Posts</h2>
       <div div class="d-flex p-2">
             <?php
-                $sql = "SELECT * FROM posts LIMIT ".$numPosts.";";
+                $sql = "SELECT * FROM posts;";
                 $res = $conn->query($sql);
                 while($row = $res->fetch_assoc()){
                     echo 
@@ -92,5 +94,4 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
       </div>
   </div>
 </body>
-
 </html>
