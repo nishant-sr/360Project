@@ -1,6 +1,13 @@
 <?php
 include 'config.php';
 session_start();
+if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
+  $user = $_SESSION['username'];
+  $uid = $_SESSION['user_id'] ;
+}else{
+  $user = null;
+  $uid = null;
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,29 +21,41 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-  <nav class="navbar bg-primary ">
+<nav class="navbar bg-primary ">
     <div class="col p-2">
-      <a href="index.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+      <a href="index.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
         Main
       </a>
-      <a href="timeline.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+      <a href="timeline.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
         Feed
       </a>
-      <a href="sign.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-        Signup/Signin
-      </a>
-      <a href="profile.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-        profile
-      </a>
-      <a href="create.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-        Create Page
-      </a>
-      <a href="admin.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-        Admin
-      </a>
-      <form action="logout.php" type="post">
-        <button class="btn btn-info" type="submit">logout</button>
-      </form>
+      
+    <?php
+        if($user == '' || $user == null){
+            
+            echo'
+            <a href="register.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+                Register
+            </a>
+            <a href="signin.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+              Sign-In
+            </a>';
+        }else{
+            echo'<a href="profile.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+            '.$user.' 
+            </a>
+            <a href="create.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+                Create
+            </a>';
+        }
+
+        if($_SESSION['is_admin'] == 1){
+          echo"
+          <a href='admin.php' class='link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2'>
+          Admin
+        </a>";
+        }
+    ?>
     </div>
   </nav>
   <div class="container text-center p-2">
@@ -72,7 +91,7 @@ session_start();
                         ?>
                     </th>
                     <th>
-                        <form action="delete.php" type="post">
+                        <form action="deleteAccount.php" type="post">
                             <button class="m-2 btn btn-danger" type="submit"> Delete Account</button>
                         </form>
                     </th>

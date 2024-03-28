@@ -73,36 +73,43 @@ if(isset($_GET['post_id'])) {
 </head>
 <body>
 
-    <nav class="navbar bg-primary ">
-        <div class="col p-2">
-        <a href="index.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-            Main
-        </a>
-        <a href="timeline.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-            Feed
-        </a>
-        
-        <?php
-            if($user == '' || $user == null){
-                
-                echo'
-                <a href="register.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-                    Register
-                </a>
-                <a href="signin.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-                Sign-In
-                </a>';
-            }else{
-                echo'<a href="profile.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-                '.$user.' 
-                </a>
-                <a href="create.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
-                    Create
-                </a>';
-            }
-        ?>
-        </div>
-    </nav>
+<nav class="navbar bg-primary ">
+    <div class="col p-2">
+      <a href="index.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+        Main
+      </a>
+      <a href="timeline.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+        Feed
+      </a>
+      
+    <?php
+        if($user == '' || $user == null){
+            
+            echo'
+            <a href="register.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+                Register
+            </a>
+            <a href="signin.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+              Sign-In
+            </a>';
+        }else{
+            echo'<a href="profile.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+            '.$user.' 
+            </a>
+            <a href="create.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+                Create
+            </a>';
+        }
+
+        if($_SESSION['is_admin'] == 1){
+          echo"
+          <a href='admin.php' class='link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2'>
+          Admin
+        </a>";
+        }
+    ?>
+    </div>
+  </nav>
 
     <div class="container mt-5">
         <!-- Post -->

@@ -74,11 +74,11 @@ $_SESSION['default']="./assets/usericon.webp"
     <p class="m-2">Username: <?php echo $_SESSION['username'] ?></p>
   </section>
   <?php if($_SESSION['is_admin']==1) {echo "<p class='m-2'>Admin</p> <a href='admin.php'><button class='btn btn-info m-2'>Admin view</button></a>";}?>
-  <a href="update.html"><button class="btn btn-success m-2">update account</button></a>
+  <a href="updateUser.html"><button class="btn btn-success m-2">update account</button></a>
   <form action="logout.php" method="post">
     <button class="btn btn-primary m-2" type="submit">Logout</button>
   </form>
-  <form action="delete.php" method="post">
+  <form action="deleteAccount.php" method="post">
     <button class="btn btn-danger m-2" type="submit">Delete Account</button>
   </form>
   <a href="profileImage.html"><button class="btn btn-warning m-2 btn-block">Upload Image</button></a>   

@@ -48,6 +48,13 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
                 Create
             </a>';
         }
+
+        if($_SESSION['is_admin'] == 1){
+          echo"
+          <a href='admin.php' class='link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2'>
+          Admin
+        </a>";
+        }
     ?>
     </div>
   </nav>
