@@ -22,7 +22,7 @@ if(isset($_GET['post_id'])) {
         $post_id = mysqli_real_escape_string($conn, $post_id);
 
         // Query to fetch the post details
-        $sql = "SELECT username, title,body, posts.updated_at, posts.post_id FROM users JOIN posts ON posts.user_id = users.user_id WHERE post_id = $post_id";
+        $sql = "SELECT username, title,body, posts.updated_at, posts.post_id, posts.user_id FROM users JOIN posts ON posts.user_id = users.user_id WHERE post_id = $post_id";
         $result = mysqli_query($conn, $sql);
 
         // Check if the query was successful
@@ -43,7 +43,7 @@ if(isset($_GET['post_id'])) {
                         'body' => $row['body'],
                         'updated_at' => $row['updated_at'],
                         'user_id' => $row['user_id'],
-                        'post_id' => $row['c.post_id']
+                        'post_id' => $row['post_id']
                     );
                 }
             }
@@ -119,6 +119,11 @@ if(isset($_GET['post_id'])) {
                 <p class="card-text"><?php echo $post['body']; ?></p>
                 <p class="card-text"><?php echo$post['username']; ?> - <?php echo $post['updated_at']; ?></p>
             </div>
+            <?php 
+                if ($uid == $post['user_id']) {
+                    echo "<a href='edit_post.php?post_id={$post['post_id']}' class='btn btn-primary'>Edit/Delete</a>";
+                }
+            ?>
         </div>
 
         <!-- Comments -->

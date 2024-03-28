@@ -77,8 +77,8 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
                     echo 
                     "<div class='card' style='width: 18rem;'>
                         <div class='card-body'>
-                        <h5 class='card-title'>".$row["body"]."</h5>
-                        <a href='#' class='btn btn-primary'>Go somewhere</a>
+                        <h5 class='card-title'>".$row["title"]."</h5>
+                        <a href='post.php?post_id=".$row['post_id']."' class='btn btn-primary'>View</a>
                         </div>
                     </div>";
                 //   $sql2 = "SELECT COUNT(*) AS totaldownvotes FROM posts P JOIN downvotes U ON P.post_id = U.post_id WHERE P.post_id = ".$row["post_id"]." GROUP BY U.post_id ORDER BY totaldownvotes DESC";
