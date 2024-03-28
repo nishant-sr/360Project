@@ -24,9 +24,9 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-  <nav class="navbar bg-primary ">
+<nav class="navbar bg-primary ">
     <div class="col p-2">
-      <a href="index.html" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
+      <a href="index.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
         Main
       </a>
       <a href="timeline.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
@@ -50,6 +50,13 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
             <a href="create.php" class="link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2">
                 Create
             </a>';
+        }
+
+        if($_SESSION['is_admin'] == 1){
+          echo"
+          <a href='admin.php' class='link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2'>
+          Admin
+        </a>";
         }
     ?>
     </div>
