@@ -3,15 +3,17 @@
 include 'config.php';
 session_start();
 
+$uid = $_SESSION['user_id'] ;
+
 // Check if the comment ID is provided in the URL
 if (isset($_GET['comment_id'])) {
     // Retrieve the comment ID from the URL
     $comment_id = $_GET['comment_id'];
 
     // Query to fetch the existing comment information based on the comment ID
-    $sql = "SELECT * FROM comments WHERE comment_id = ?";
+    $sql = "SELECT * FROM comments WHERE comment_id = ? AND user_id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $comment_id);
+    $stmt->bind_param("ii",$comment_id,$uid);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -32,17 +34,29 @@ if (isset($_GET['comment_id'])) {
 }
 
 // Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     // Retrieve the new comment body from the form
     $new_body = $_POST['commentBody'];
 
     // Update the comment in the database
-    $sql = "UPDATE comments SET body = ? WHERE comment_id = ?";
+    $sql = "UPDATE comments SET body = ?, updated_at = CURRENT_TIMESTAMP WHERE comment_id = ? AND post_id = ? AND user_id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("si", $new_body, $comment_id);
+    $stmt->bind_param("siii", $new_body, $comment_id,$comment['post_id'],$uid);
     $stmt->execute();
 
     // Redirect the user to the post page after updating the comment
+    header("Location: post.php?post_id=" . $comment['post_id']);
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
+    // Delete the comment from the database
+    $sql = "DELETE FROM comments WHERE comment_id = ? AND user_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $comment_id, $uid);
+    $stmt->execute();
+
+    // Redirect the user to the post page after deleting the comment
     header("Location: post.php?post_id=" . $comment['post_id']);
     exit();
 }
@@ -65,7 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="commentBody" class="form-label">Your Comment</label>
             <textarea class="form-control" id="commentBody" name="commentBody" rows="3" required><?php echo $body; ?></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <button type="submit" name="update" class="btn btn-primary">Save Changes</button>
+        <button type="submit" name="delete" class="btn btn-danger">Delete Comment</button>
     </form>
 </div>
 
