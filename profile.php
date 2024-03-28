@@ -8,6 +8,7 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
   $user = null;
   $uid = null;
 }
+$_SESSION['default']="./assets/usericon.webp"
 ?>
 
 <!DOCTYPE html>
@@ -53,16 +54,33 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
   <header>
     <h1>User Profile</h1>
   </header>
-  <?php
-    
-  ?>
-
+    <figure class="figure m-1">
+      <img
+      src=
+      "<?php
+          if($_SESSION['image']==null) {
+            echo $_SESSION['default'];
+          }
+          else {
+            echo "data:image/".$_SESSION['imageType'].";base64,".base64_encode($_SESSION['image']);
+          }
+      ?>"
+      alt="Upload image for it to be visible"
+      width="175" 
+      height="100"
+      >
+    </figure>
   <section>
-    <p>Username: <?php echo $_SESSION['username'] ?></p>
+    <p class="m-2">Username: <?php echo $_SESSION['username'] ?></p>
   </section>
   <?php if($_SESSION['is_admin']==1) {echo "<p>Admin</p>";}?>
+  <a href="update.html"><button class="btn btn-success m-2">update account</button></a>
   <form action="logout.php" method="post">
-    <button type="submit">Logout</button>
+    <button class="btn btn-primary m-2" type="submit">Logout</button>
   </form>
+  <form action="delete.php" method="post">
+    <button class="btn btn-danger m-2" type="submit">Delete Account</button>
+  </form>
+  <a href="profileImage.html"><button class="btn btn-warning m-2 btn-block">Upload Image</button></a>   
 </body>
 </html>
