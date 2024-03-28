@@ -38,8 +38,10 @@
         }
     }
     $null = NULL;
-    $sql = $conn->prepare("INSERT INTO userImages (user_id, contentType, image) VALUES(?,?,?)");
-    $sql->execute([$id, $imageFileType, $imagedata]);           
+    $sql = "INSERT INTO userImages (user_id, contentType, image) VALUES(?,?,?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iss",$id, $imageFileType, $imagedata);
+    $stmt->execute();   
     $_SESSION['image'] = $imagedata;
     $_SESSION['imageType'] = $imageFileType;
     header("Location: profile.php");
