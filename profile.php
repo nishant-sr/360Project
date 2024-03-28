@@ -82,5 +82,26 @@ $_SESSION['default']="./assets/usericon.webp"
     <button class="btn btn-danger m-2" type="submit">Delete Account</button>
   </form>
   <a href="profileImage.html"><button class="btn btn-warning m-2 btn-block">Upload Image</button></a>   
+
+
+  <?php
+    $sql = "SELECT comments.comment_id, comments.body, comments.post_id, posts.title, comments.updated_at
+            FROM comments
+            JOIN posts ON comments.post_id = posts.post_id
+            WHERE comments.user_id = ? ORDER BY updated_at DESC";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        echo "<h3>Comment History</h3>";
+        while ($row = $result->fetch_assoc()) {
+            echo "<p><a href='post.php?post_id=".$row['post_id']."'> Commented: ".$row['body']."</a> Under Post: ".$row['title']."</p>";
+        }
+    } else {
+        echo "<p>No comments found.</p>";
+    }
+  ?>
 </body>
 </html>

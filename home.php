@@ -2,8 +2,6 @@
 
 include 'config.php';
 session_start();
-// $user = $_SESSION['user'];
-// $uid = $_SESSION['$uid'] ;
 
 if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
   $user = $_SESSION['username'];
@@ -71,7 +69,7 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
       <h2>Spotlight of Some Posts</h2>
       <div div class="d-flex p-2">
             <?php
-                $sql = "SELECT * FROM posts;";
+                $sql = "SELECT * FROM posts LIMIT 3;";
                 $res = $conn->query($sql);
                 while($row = $res->fetch_assoc()){
                     echo 
@@ -81,22 +79,8 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
                         <a href='post.php?post_id=".$row['post_id']."' class='btn btn-primary'>View</a>
                         </div>
                     </div>";
-                //   $sql2 = "SELECT COUNT(*) AS totaldownvotes FROM posts P JOIN downvotes U ON P.post_id = U.post_id WHERE P.post_id = ".$row["post_id"]." GROUP BY U.post_id ORDER BY totaldownvotes DESC";
-                //   $res2 = $pdo->query($sql2); 
-                //   echo "<tr>";
-                //   echo "<td><form action='upvoteforum.php?post_id=".$row["post_id"]."' method='post'><button class='upvote'>&uarr;</button></form><form action='downvoteforum.php?post_id=".$row["post_id"]."' method='post'><button class='downvote'>&darr;</button></form></td>";
-                //   echo "<td> <a href= post.php?post_id=".$row["post_id"].">".$row["body"]."</a></td>";
-                //   if($row2 = $res2->fetch()){
-                //   $totalvotes = ($row["totalUpvotes"] - $row2['totaldownvotes']);
-                //   echo "<td> ".$totalvotes."</td>";
-                //   }else{
-                //     echo "<td> ".$row["totalUpvotes"]."</td>";
-                //   }
-                  
-                //   echo "</tr>";
                 }
-                // $pdo = null;
-                // $res = null;
+
               ?>
       </div>
   </div>
