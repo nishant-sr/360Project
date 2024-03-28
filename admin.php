@@ -45,7 +45,7 @@ session_start();
       <h1>Admin View</h1>
       <?php
         if($_SESSION['is_admin']==1) {
-            $sql = "SELECT * FROM user";
+            $sql = "SELECT * FROM users";
             $result = mysqli_query($conn, $sql);
             while ($row = mysqli_fetch_array($result)) {
       ?>
