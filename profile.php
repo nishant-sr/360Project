@@ -8,7 +8,8 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
   $user = null;
   $uid = null;
 }
-$_SESSION['default']="./assets/usericon.webp"
+
+
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +67,7 @@ $_SESSION['default']="./assets/usericon.webp"
       src=
       "<?php
           if($_SESSION['image']==null) {
-            echo $_SESSION['default'];
+            echo 'no image to see here';
           }
           else {
             echo "data:image/".$_SESSION['imageType'].";base64,".base64_encode($_SESSION['image']);

@@ -73,7 +73,7 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
                 $res = $conn->query($sql);
                 while($row = $res->fetch_assoc()){
                     echo 
-                    "<div class='card' style='width: 18rem;'>
+                    "<div class='card m-2' style='width: 18rem;'>
                         <div class='card-body'>
                         <h5 class='card-title'>".$row["title"]."</h5>
                         <a href='post.php?post_id=".$row['post_id']."' class='btn btn-primary'>View</a>
