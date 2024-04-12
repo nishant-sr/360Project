@@ -50,7 +50,7 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
             </a>';
         }
 
-        if($_SESSION['is_admin'] == 1){
+        if(isset($_SESSION['is_admin'])){
           echo"
           <a href='admin.php' class='link-light link-underline-opacity-25 link-underline-opacity-100-hover p-2'>
           Admin
@@ -64,6 +64,13 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
       <header>
         <h1>Main Page</h1>
         <p>Brief welcome section for aesthetic purposes.</p>
+        <form method="GET" action="search.php" class="mt-3">
+        <div class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="Search for posts or users">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    
       </header>
         
       <h2>Spotlight of Some Posts</h2>
@@ -73,7 +80,7 @@ if(isset($_SESSION['username'])&& isset($_SESSION['user_id'])) {
                 $res = $conn->query($sql);
                 while($row = $res->fetch_assoc()){
                     echo 
-                    "<div class='card m-2' style='width: 18rem;'>
+                    "<div class='card' style='width: 18rem;'>
                         <div class='card-body'>
                         <h5 class='card-title'>".$row["title"]."</h5>
                         <a href='post.php?post_id=".$row['post_id']."' class='btn btn-primary'>View</a>
